@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ernesto J. Gonzalez Zeledón | Analista de Datos / BI</title>
+  <meta name="description" content="Ernesto J. Gonzalez Zeledón, analista de datos y BI. Sabor Latino: tablero financiero en Power BI con datos ficticios, hallazgos y límites.">
+  <meta name="author" content="Ernesto J. Gonzalez Zeledón">
+  <meta name="theme-color" content="#1F3864">
+  <!-- Vista previa al compartir el enlace (LinkedIn, WhatsApp, correo). og:url y og:image se añaden al conocer la dirección final. -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Ernesto J. Gonzalez Zeledón | Analista de Datos / BI">
+  <meta property="og:description" content="Sabor Latino: tablero financiero en Power BI con datos ficticios. Cobrar una sola factura vencida alcanza para pagar todo lo que el restaurante debe a sus proveedores.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231F3864'/%3E%3Crect x='6' y='9' width='20' height='5' rx='1' fill='%232A78D6'/%3E%3Crect x='6' y='18' width='16' height='5' rx='1' fill='%23EB6834'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+  <style>
+    /* Colores: blanco de lienzo y azul marino de la marca personal (el del CV).
+       El azul y el naranja son los del tablero: azul = dinero que entra o te deben, naranja = dinero que sale o debes.
+       Solo se usan para eso. */
+    :root {
+      --paper: #FFFFFF;
+      --ink: #1F3864;
+      --text: #26313F;
+      --muted: #5A6577;
+      --rule: #DCE3EC;
+      --in: #2A78D6;
+      --in-text: #1C5DAE;
+      --out: #EB6834;
+      --focus: #1C5DAE;
+      --measure: 42rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #0F1B2D;
+        --ink: #E9EEF6;
+        --text: #D7DFEA;
+        --muted: #A3B0C2;
+        --rule: #26364F;
+        --in: #5B9CEB;
+        --in-text: #8DBBF2;
+        --out: #F28457;
+        --focus: #8DBBF2;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--text);
+      font-family: "Archivo", "Segoe UI", system-ui, -apple-system, sans-serif;
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      font-variation-settings: "wdth" 100;
+    }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--in-text); text-underline-offset: 0.18em; }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 2px; }
+
+    .skip { position: absolute; left: -999px; top: 0; }
+    .skip:focus { left: 1rem; top: 1rem; background: var(--paper); padding: 0.5rem 0.75rem; z-index: 10; }
+
+    /* .wrap solo fija los lados; las demás reglas solo fijan arriba y abajo, para que no se pisen. */
+    .wrap { max-width: var(--measure); margin-left: auto; margin-right: auto; padding-left: 1.25rem; padding-right: 1.25rem; }
+
+    /* Cabecera */
+    .masthead { padding-top: 2.5rem; }
+    .name {
+      margin: 0;
+      color: var(--ink);
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .role { margin: 0.15rem 0 0; color: var(--muted); }
+
+    /* Lo memorable de la página: el hallazgo, dicho y dibujado */
+    .hero { padding-top: 2.75rem; padding-bottom: 1rem; }
+    .eyebrow { margin: 0 0 0.9rem; color: var(--muted); font-size: 0.95rem; font-weight: 600; letter-spacing: 0.01em; }
+    .hero h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(2rem, 6.2vw, 3.35rem);
+      line-height: 1.04;
+      font-weight: 800;
+      font-variation-settings: "wdth" 72;
+      letter-spacing: -0.01em;
+      max-width: 24ch;
+      text-wrap: balance;
+    }
+    .compare { margin: 2rem 0 0; }
+    .bar-row { margin: 0 0 1rem; }
+    .bar-label { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+    .bar-label span { color: var(--text); }
+    .bar-label strong {
+      font-size: 1.6rem;
+      font-weight: 800;
+      font-variation-settings: "wdth" 75;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+    }
+    .bar { height: 0.85rem; border-radius: 0 3px 3px 0; margin-top: 0.35rem; }
+    .bar.in { background: var(--in); width: 100%; }
+    .bar.out { background: var(--out); width: 79.7%; }   /* 2,550 / 3,200 */
+    .is-in { color: var(--in-text); }
+    .is-out { color: var(--out); }
+    .compare figcaption { color: var(--muted); font-size: 0.95rem; margin-top: 0.25rem; }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 2rem 0 0; }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.15rem;
+      border-radius: 6px;
+      font-weight: 650;
+      text-decoration: none;
+      border: 2px solid var(--ink);
+    }
+    .btn.primary { background: var(--ink); color: var(--paper); }
+    .btn.secondary { color: var(--ink); }
+    .btn:hover { text-decoration: underline; }
+
+    /* Secciones */
+    main section { padding-top: 2.75rem; }
+    main section.hero { padding-top: 2.75rem; padding-bottom: 1rem; }
+    h2 {
+      margin: 0 0 0.85rem;
+      color: var(--ink);
+      font-size: 1.6rem;
+      line-height: 1.2;
+      font-weight: 750;
+      font-variation-settings: "wdth" 80;
+      text-wrap: balance;
+    }
+    p { margin: 0 0 1rem; }
+    .lead { font-size: 1.15rem; }
+
+    ul.points { margin: 0; padding: 0; list-style: none; }
+    ul.points li { padding: 0.9rem 0; border-top: 1px solid var(--rule); }
+    ul.points li:last-child { border-bottom: 1px solid var(--rule); }
+    .fig {
+      font-weight: 800;
+      font-variation-settings: "wdth" 75;
+      font-variant-numeric: tabular-nums;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    ul.plain { margin: 0 0 1rem; padding-left: 1.2rem; }
+    ul.plain li { margin: 0 0 0.5rem; }
+
+    /* Pruebas de lo que dijo la IA, junto al texto que las cita */
+    .evidence { margin: 0 0 1.5rem; }
+    .evidence img { border: 1px solid var(--rule); border-radius: 4px; }
+    .evidence figcaption { color: var(--muted); font-size: 0.95rem; margin-top: 0.5rem; }
+
+    /* Capturas: más anchas que el texto en pantallas grandes */
+    .shots figure { margin: 0 0 2rem; }
+    .shots img { border: 1px solid var(--rule); border-radius: 4px; }
+    .shots figcaption { color: var(--muted); font-size: 0.95rem; margin-top: 0.5rem; }
+    @media (min-width: 64rem) {
+      .shots .wide { margin-left: -6rem; margin-right: -6rem; }
+    }
+
+    .site-footer { padding-top: 3rem; padding-bottom: 2.5rem; color: var(--muted); font-size: 0.95rem; }
+    .site-footer p { margin: 0 0 0.35rem; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+
+  <header class="wrap masthead">
+    <p class="name">Ernesto J. Gonzalez Zeledón</p>
+    <p class="role">Analista de Datos / BI | Power BI · Excel</p>
+  </header>
+
+  <main id="contenido" class="wrap">
+    <section class="hero" aria-labelledby="hallazgo">
+      <p class="eyebrow">Proyecto de portafolio · Power BI · datos ficticios</p>
+      <h1 id="hallazgo">Cobrar una sola factura vencida alcanza para pagar todo lo que el restaurante debe a sus proveedores.</h1>
+
+      <figure class="compare">
+        <div class="bar-row">
+          <div class="bar-label"><span>Una factura que le deben, con 41 días de atraso</span> <strong class="is-in">$3,200</strong></div>
+          <div class="bar in" aria-hidden="true"></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-label"><span>Todo lo que el restaurante debe a proveedores</span> <strong class="is-out">$2,550</strong></div>
+          <div class="bar out" aria-hidden="true"></div>
+        </div>
+        <figcaption>Sabor Latino, un restaurante con datos ficticios. Facturas pendientes al 30 de abril de 2026, en dólares (USD).</figcaption>
+      </figure>
+
+      <div class="actions">
+        <a class="btn primary" href="https://app.powerbi.com/view?r=eyJrIjoiNTJmYzZlYzYtMzE2Yi00Y2QxLWIxNTctMDZiM2MxYjdmZjA0IiwidCI6ImQ1MzEyNDdiLWFkZDQtNDNjNC04ZjE3LWVmMTY5YjczYWM2MyJ9&amp;pageName=f6269dc94608040e583e" target="_blank" rel="noopener">Ver el tablero en Power BI</a>
+        <a class="btn secondary" href="mailto:gesgi2021@gmail.com">Escribirme</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="proyecto">
+      <h2 id="proyecto">El proyecto</h2>
+      <p class="lead">Sabor Latino es un restaurante inventado para este proyecto. Construí en Power BI un tablero que responde dos preguntas del dueño: ¿gano dinero? y ¿cuánto me deben, cuánto debo y cuándo vence?</p>
+      <p>El objetivo fue detectar problemas en los datos antes de que lleven a malas decisiones. Los datos son ficticios y van de enero a abril de 2026: 40 transacciones, 6 facturas por cobrar y 5 por pagar.</p>
+    </section>
+
+    <section aria-labelledby="hallazgos">
+      <h2 id="hallazgos">Lo que encontré</h2>
+      <ul class="points">
+        <li>Con los ingresos registrados, de enero a abril el restaurante ganó <span class="fig">$8,930</span>, pero marzo y abril cerraron con pérdida: <span class="fig">−$730</span> y <span class="fig">−$1,100</span>.</li>
+        <li>Encontré un problema de datos que cambia esa conclusión: <span class="fig">$10,200</span> en facturas de catering no aparecen en los ingresos. Son 5 de las 6 facturas, todas de marzo y abril. Las transacciones registran los gastos en la fecha de la factura, aunque estén sin pagar; con el mismo criterio, marzo ganaría <span class="fig">$6,470</span> y abril <span class="fig">$1,900</span>.</li>
+        <li>Le deben <span class="fig">$6,800</span> en tres facturas vencidas y debe <span class="fig">$2,550</span> a proveedores. La factura de Corporate Event Co, <span class="fig">$3,200</span>, alcanza por sí sola para pagarles a todos.</li>
+        <li>Mi siguiente etapa de estudio es SQL: con él repetiré este cruce de facturas e ingresos.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="como">
+      <h2 id="como">Cómo lo construí</h2>
+      <ul class="plain">
+        <li>Un Excel con las transacciones, las facturas y una columna de control de calidad que revisa cada fila.</li>
+        <li>Un modelo en estrella en Power BI con 6 tablas conectadas y 9 relaciones. Una sola tabla de fechas sirve para dos fechas distintas: la de emisión y la de vencimiento de cada factura.</li>
+        <li>10 medidas DAX, con CALCULATE, USERELATIONSHIP y DIVIDE.</li>
+        <li>Tres páginas: Profitability (rentabilidad), Liquidity (liquidez) y AI Audit (auditoría de IA). Las tablas de facturas vencidas no reaccionan a los filtros, para que siempre muestren lo pendiente al 30 de abril.</li>
+        <li>Publicado con un enlace público que se abre sin cuenta.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="ia">
+      <h2 id="ia">Lo que la IA de Power BI no vio</h2>
+      <p>Probé los visuales de IA de Power BI y revisé sus respuestas antes de creerlas.</p>
+      <ul class="plain">
+        <li>La IA del árbol de descomposición recomendó «Walk-in Customers, $52,380» como hallazgo. Es cierto, pero no sirve: Walk-in Customers no es un cliente, sino la etiqueta de los totales semanales de caja, y cubre el 97&nbsp;% de los ingresos. La IA presentó un hueco de datos como si fuera un hallazgo de negocio.</li>
+        <li>Key Influencers respondió que no había encontrado ningún elemento influyente y sugirió agregar más campos. En realidad no podía evaluar: Microsoft explica que ese mensaje aparece cuando las categorías tienen muy pocas observaciones para generalizar, y aquí había 40 filas, con tres categorías de una sola fila. El mensaje suena a conclusión sobre los datos, cuando es un límite de la herramienta.</li>
+        <li>La narrativa automática (Smart Narrative) escribió que febrero tenía «el valor más bajo» de ganancia, cuando fue el más alto; en la misma frase llamó «más bajo» también a abril. Además dijo que febrero era el 64&nbsp;% de la ganancia, porque sumó las pérdidas como si fueran ganancias: sobre la ganancia real ($8,930), febrero aporta $8,100, el 91&nbsp;%.</li>
+      </ul>
+      <figure class="evidence">
+        <img src="05_IA_Narrativa.png" width="369" height="378" alt="Texto que generó la narrativa automática: «En $8.100, February tenía el valor más bajo Net Profit y era 836,36% superior a April, que tenía el Net Profit más bajo en ($1.100). February tenía el más alto Net Profit en $8.100, seguido de January, March y April. February cuenta para 64,34% de Net Profit. En todos los 4 NombreMes, Net Profit varió de ($1.100) a $8.100. Total Income y el total Total Expenses se correlacionan positivamente entre sí. Total Income y Total Expenses divergieron más cuando NombreMes era February, cuando Total Income eran $8.100 más altos que Total Expenses.»" loading="lazy" decoding="async">
+        <figcaption>Texto literal de la narrativa automática en mi prueba de septiembre de 2026, en Power BI Desktop. No está en el tablero publicado.</figcaption>
+      </figure>
+      <figure class="evidence">
+        <img src="06_IA_Key_Influencers.png" width="470" height="225" alt="Mensaje de Key Influencers en Power BI: «No se ha encontrado ningún elemento influyente. Intente agregar más campos en &quot;Explicar por&quot;.»" loading="lazy" decoding="async">
+        <figcaption>Key Influencers en la misma prueba, al analizar qué influye en AMOUNT.</figcaption>
+      </figure>
+      <p>Ninguna de las tres herramientas avisó del problema real: 40 filas son pocas para esas conclusiones. Lo supe porque revisé los datos fuera de la herramienta.</p>
+    </section>
+
+    <section aria-labelledby="limites">
+      <h2 id="limites">Lo que este tablero no puede responder</h2>
+      <ul class="plain">
+        <li>No hay número de clientes ni ticket medio. Si la venta cae, no se puede distinguir si vino menos gente o si gastó menos.</li>
+        <li>La página de liquidez muestra lo pendiente de cobrar y de pagar, no el saldo del banco, porque no hay fechas de pago.</li>
+        <li>Solo hay cuatro meses y ningún año anterior, así que no se puede descartar la estacionalidad.</li>
+        <li>Faltan registros de venta: marzo no tiene la venta de comida de la semana 1, y abril no tiene las semanas 2 y 4 ni ventas de bebidas. Parte de las pérdidas puede deberse a registros incompletos.</li>
+        <li>En cuentas por pagar no aparece una compra a crédito del 6 de abril a Fresh Foods Wholesale ($1,700). Si estuviera sin pagar, harían falta dos facturas, no una, para pagar a los proveedores.</li>
+      </ul>
+    </section>
+
+    <section class="shots" aria-labelledby="capturas">
+      <h2 id="capturas">Capturas</h2>
+      <figure class="wide">
+        <a href="01_Profitability.png"><img src="01_Profitability.png" width="1908" height="1000" alt="Página Profitability del tablero: tarjetas de ingresos ($54,180), gastos ($45,250), ganancia ($8,930) y margen (16.48&nbsp;%), gráficos de ingresos y gastos por mes, tendencia de la ganancia, gastos por categoría y tablas de facturas vencidas." loading="lazy" decoding="async"></a>
+        <figcaption>Rentabilidad: ingresos, gastos, ganancia y margen de enero a abril.</figcaption>
+      </figure>
+      <figure class="wide">
+        <a href="02_Liquidity.png"><img src="02_Liquidity.png" width="1910" height="1011" alt="Página Liquidity del tablero: tarjetas de lo pendiente de cobrar ($6,800), de pagar ($2,550) y su diferencia ($4,250), gráfico de pendientes por mes de vencimiento y tablas de todas las facturas por cobrar y por pagar." loading="lazy" decoding="async"></a>
+        <figcaption>Liquidez: lo pendiente de cobrar y de pagar, por mes de vencimiento.</figcaption>
+      </figure>
+      <figure class="wide">
+        <a href="04_AI_Audit.png"><img src="04_AI_Audit.png" width="998" height="706" alt="Página AI Audit del tablero: árbol de descomposición de los ingresos totales ($54,180) por mes —enero $14,430, febrero $20,200, marzo $11,150 y abril $8,400— y, dentro de abril, por categoría: solo ventas de comida ($8,400)." loading="lazy" decoding="async"></a>
+        <figcaption>Auditoría de IA: el árbol de descomposición abierto por mes y categoría. En abril solo hay ventas de comida: faltan las de bebidas.</figcaption>
+      </figure>
+      <figure class="wide">
+        <a href="03_Modelo.png"><img src="03_Modelo.png" width="928" height="804" alt="Vista de modelo en Power BI: las tablas de hechos en el centro, conectadas con las dimensiones de fechas, de categorías y de clientes y proveedores." loading="lazy" decoding="async"></a>
+        <figcaption>El modelo de datos en Power BI.</figcaption>
+      </figure>
+    </section>
+
+    <section aria-labelledby="sobre">
+      <h2 id="sobre">Sobre mí</h2>
+      <p>Soy ingeniero industrial. Trabajé en ingreso de datos de alto volumen, estadística, nómina y estados financieros, y como dueño dirigí la gestión, la administración y el cumplimiento legal de un taller de mecánica automotriz. Hoy me estoy formando como analista de datos y BI con Power BI y Excel; Sabor Latino es mi primer proyecto de portafolio. Vivo en Miami, Florida.</p>
+      <p>En 2026 completé cuatro cursos certificados en Coursera: <a href="https://coursera.org/verify/5ILWIRV77OTG" target="_blank" rel="noopener">contabilidad financiera (Wharton, Universidad de Pensilvania)</a>, <a href="https://coursera.org/verify/VJMCFHMS3CWE" target="_blank" rel="noopener">contabilidad básica (Intuit)</a>, <a href="https://coursera.org/verify/I51C4SETW9AN" target="_blank" rel="noopener">finanzas para no financieros (Rice University)</a> y <a href="https://coursera.org/verify/KXVMYE3FMGQB" target="_blank" rel="noopener">Excel para negocios, nivel esencial (Macquarie University)</a>. Cada nombre abre su verificación en Coursera.</p>
+      <p>Busco empleo como analista de datos o BI, remoto en español, híbrido o presencial, y también proyectos freelance. Escríbeme a <a href="mailto:gesgi2021@gmail.com">gesgi2021@gmail.com</a>.</p>
+    </section>
+  </main>
+
+  <footer class="wrap site-footer">
+    <p>Sabor Latino usa datos ficticios, creados para este portafolio.</p>
+    <p>Actualizado en octubre de 2026.</p>
+  </footer>
+</body>
+</html>
