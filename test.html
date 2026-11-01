@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>¿Tu negocio está en verde? | Ernesto J. Gonzalez Zeledón</title>
+  <meta name="description" content="Test gratis de 6 preguntas: el semáforo de tu negocio en ganancia, cobros, pagos y datos. Tus respuestas no se guardan.">
+  <meta name="author" content="Ernesto J. Gonzalez Zeledón">
+  <meta name="theme-color" content="#1F3864">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://egzeledon.github.io/test.html">
+  <meta property="og:title" content="¿Tu negocio está en verde? Test gratis de 6 preguntas">
+  <meta property="og:description" content="En 1 minuto, el semáforo de tu negocio: ganancia, cobros, pagos y datos. Tus respuestas no se guardan.">
+  <link rel="canonical" href="https://egzeledon.github.io/test.html">
+  <meta property="og:image" content="https://egzeledon.github.io/test_vista.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Semáforo con la luz verde encendida y la pregunta ¿Tu negocio está en verde?">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:locale" content="es_ES">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231F3864'/%3E%3Ccircle cx='16' cy='9' r='4' fill='%23D32F2F'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23F2B100'/%3E%3Ccircle cx='16' cy='23' r='4' fill='%232E7D32'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #FFFFFF; --ink: #1F3864; --text: #26313F; --muted: #5A6577; --rule: #DCE3EC;
+      --card: #F5F7FB; --focus: #1C5DAE;
+      --green: #2E7D32; --yellow: #F2B100; --red: #D32F2F; --gray: #9AA4B2;
+      --green-text: #2E7D32; --yellow-text: #8A5A00; --red-text: #C62828;
+      --measure: 40rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --paper: #0F1B2D; --ink: #E9EEF6; --text: #D7DFEA; --muted: #A3B0C2; --rule: #26364F; --card: #16263D; --focus: #8DBBF2;
+              --green-text: #7BC67E; --yellow-text: #F2C94C; --red-text: #F28B82; }
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { margin: 0; background: var(--paper); color: var(--text);
+           font-family: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; line-height: 1.5; }
+    main { max-width: var(--measure); margin: 0 auto; padding: 28px 16px 48px; }
+    .lights { display: flex; gap: 8px; margin-bottom: 10px; }
+    .lights span { width: 16px; height: 16px; border-radius: 50%; display: inline-block; }
+    h1 { color: var(--ink); font-size: clamp(1.7rem, 5vw, 2.3rem); line-height: 1.15; margin: 0 0 8px; font-stretch: 85%; }
+    .lead { font-size: 1.08rem; margin: 0 0 6px; }
+    .privacy { color: var(--muted); font-size: .92rem; margin: 0 0 22px; }
+    fieldset { border: 1px solid var(--rule); border-radius: 12px; padding: 14px 16px 10px; margin: 0 0 14px; background: var(--card); }
+    legend { font-weight: 700; color: var(--ink); padding: 0; margin: 0 0 6px; font-size: 1.02rem; float: left; width: 100%; }
+    legend + label { clear: both; }
+    .num { color: var(--muted); font-weight: 600; margin-right: 4px; }
+    label { display: flex; gap: 10px; align-items: flex-start; padding: 8px 4px; cursor: pointer; border-radius: 8px; }
+    label:hover { background: rgba(31,56,100,.06); }
+    input[type=radio] { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--ink); flex: none; }
+    input[type=radio]:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+    .btn { display: inline-block; border: 0; border-radius: 10px; padding: 13px 18px; font: inherit; font-weight: 700;
+           cursor: pointer; text-decoration: none; text-align: center; }
+    .btn-main { background: var(--ink); color: var(--paper); width: 100%; font-size: 1.05rem; }
+    .btn-wa { background: #1F8B4C; color: #fff; width: 100%; font-size: 1.05rem; margin-top: 6px; }
+    .btn-alt { background: transparent; color: var(--ink); border: 2px solid var(--ink); width: 100%; margin-top: 10px; }
+    .btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .warn { color: var(--red); font-weight: 600; min-height: 1.4em; margin: 8px 0 0; }
+    #result { display: none; margin-top: 26px; border-top: 2px solid var(--rule); padding-top: 22px; }
+    #result h2 { color: var(--ink); margin: 0 0 6px; font-size: 1.45rem; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 14px 0 12px; }
+    .area { border-radius: 12px; padding: 12px; border: 1px solid var(--rule); background: var(--card); }
+    .area .top { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--ink); }
+    .dot { width: 18px; height: 18px; border-radius: 50%; flex: none; }
+    .tag { margin-left: auto; font-size: .78rem; font-weight: 800; letter-spacing: .04em; }
+    .area p { margin: 6px 0 0; font-size: .93rem; }
+    .note { color: var(--muted); font-size: .9rem; }
+    footer { max-width: var(--measure); margin: 0 auto; padding: 0 16px 32px; color: var(--muted); font-size: .9rem; }
+    footer a, main a { color: var(--focus); }
+    @media (max-width: 420px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<main>
+  <div class="lights" aria-hidden="true"><span style="background:var(--red)"></span><span style="background:var(--yellow)"></span><span style="background:var(--green)"></span></div>
+  <h1>¿Tu negocio está en verde?</h1>
+  <p class="lead">6 preguntas, 1 minuto. Al final ves el semáforo de tu negocio en <b>ganancia, cobros, pagos y datos</b>.</p>
+  <p class="lead" style="font-weight:700;color:var(--ink)">Contesta con sinceridad y de memoria, sin abrir ningún papel.</p>
+  <p class="privacy">🔒 Tus respuestas no se guardan ni se envían a nadie: el resultado se calcula en tu propio celular o computadora.</p>
+
+  <form id="quiz" novalidate>
+    <fieldset>
+      <legend><span class="num">1.</span>Sin abrir ningún papel: ¿cuánto ganaste el mes pasado, después de pagar todo (nómina, renta y proveedores)?</legend>
+      <label><input type="radio" name="q1" value="g">Lo sé al dólar.</label>
+      <label><input type="radio" name="q1" value="y">Tengo una idea aproximada.</label>
+      <label><input type="radio" name="q1" value="r">Tendría que buscarlo o preguntarle a mi contador.</label>
+    </fieldset>
+    <fieldset>
+      <legend><span class="num">2.</span>¿Sabes qué producto o servicio te deja más ganancia, y cuál te hace perder?</legend>
+      <label><input type="radio" name="q2" value="g">Sí, lo tengo calculado con números.</label>
+      <label><input type="radio" name="q2" value="y">Me lo imagino, pero nunca lo he calculado.</label>
+      <label><input type="radio" name="q2" value="r">No lo sé.</label>
+    </fieldset>
+    <fieldset>
+      <legend><span class="num">3.</span>¿Cuánto te deben tus clientes hoy, y desde cuándo?</legend>
+      <label><input type="radio" name="q3" value="g">Lo sé exacto, con nombres y fechas (o no vendo a crédito).</label>
+      <label><input type="radio" name="q3" value="y">Sé más o menos el total, pero no las fechas.</label>
+      <label><input type="radio" name="q3" value="r">Tendría que revisarlo.</label>
+    </fieldset>
+    <fieldset>
+      <legend><span class="num">4.</span>Si mañana tuvieras que pagar todo lo que les debes a tus proveedores, ¿te alcanzaría el dinero?</legend>
+      <label><input type="radio" name="q4" value="g">Sí, y sé exactamente cuánto me sobraría.</label>
+      <label><input type="radio" name="q4" value="y">Creo que sí, pero no estoy seguro.</label>
+      <label><input type="radio" name="q4" value="r">No, o no lo sé.</label>
+    </fieldset>
+    <fieldset>
+      <legend><span class="num">5.</span>¿Cada cuánto comparas lo que anotas (ventas y gastos) con lo que de verdad entró y salió de tu banco?</legend>
+      <label><input type="radio" name="q5" value="g">Cada semana o cada mes.</label>
+      <label><input type="radio" name="q5" value="y">Solo cuando el contador lo pide, o al final del año.</label>
+      <label><input type="radio" name="q5" value="r">Nunca lo he hecho.</label>
+    </fieldset>
+    <fieldset>
+      <legend><span class="num">6.</span>¿Cuánto tardas en saber cómo te fue la semana pasada?</legend>
+      <label><input type="radio" name="q6" value="g">Un minuto: lo tengo a la vista.</label>
+      <label><input type="radio" name="q6" value="y">Unas horas: tengo que juntar papeles o archivos de Excel.</label>
+      <label><input type="radio" name="q6" value="r">No lo sé hasta que me lo dice el contador.</label>
+    </fieldset>
+    <button class="btn btn-main" type="submit">Ver mi semáforo</button>
+    <p class="warn" id="warn" role="alert"></p>
+  </form>
+
+  <section id="result" aria-live="polite">
+    <h2 id="headline"></h2>
+    <p id="summary"></p>
+    <div class="grid" id="grid"></div>
+    <p class="note">Este test es una orientación rápida. La radiografía revisa tus números reales: cuánto ganaste de verdad, por dónde se escapa el dinero y 3 acciones para esa misma semana.</p>
+    <a class="btn btn-wa" id="cta" href="#" target="_blank" rel="noopener">Pide tu radiografía gratis</a>
+    <a class="btn btn-alt" href="Control_de_tu_negocio_con_semaforo_web.xlsx" download>Descarga gratis la plantilla de Excel con semáforo automático</a>
+    <p class="note" style="margin-top:14px">Son solo 5 radiografías gratis. Tus datos son confidenciales: solo uso inteligencia artificial si me lo autorizas, y siempre sin nombres.</p>
+  </section>
+</main>
+<footer>
+  Ernesto J. Gonzalez Zeledón, analista de datos · <a href="https://egzeledon.github.io/">Mi trabajo</a> · <a href="https://www.linkedin.com/in/egzeledon" rel="noopener">LinkedIn</a>
+</footer>
+<script>
+  // Contacto del botón: WhatsApp si hay número (solo dígitos, con el 1 de EE. UU.); si no, el correo.
+  const WHATSAPP = "";  // 31/10: por ahora sin WhatsApp en la página pública (decisión de Ernesto); el botón usa el correo.
+  const EMAIL = "gesgi2021@gmail.com";
+
+  const COLOR = { g: ["VERDE", "var(--green)", "var(--green-text)"], y: ["AMARILLO", "var(--yellow)", "var(--yellow-text)"], r: ["ROJO", "var(--red)", "var(--red-text)"] };
+  const rank = { g: 0, y: 1, r: 2 };
+  const worst = (a, b) => (rank[a] >= rank[b] ? a : b);
+  const TEXT = {
+    ganancia: { g: "Sabes cuánto ganas y qué te deja más ganancia.", y: "Tienes una idea, pero sin números exactos: ahí se esconden las sorpresas.", r: "Si no sabes cuánto ganas ni qué te deja ganancia, estás decidiendo a ciegas." },
+    cobros:   { g: "Sabes quién te debe y desde cuándo.", y: "Sabes el total, pero no las fechas: así es como se pierden los cobros.", r: "Hay dinero tuyo en la calle y no sabes cuánto ni desde cuándo." },
+    pagos:    { g: "Sabes que puedes pagar todo y cuánto te sobra.", y: "Crees que te alcanza, pero no estás seguro: un mes flojo te puede apretar.", r: "Si no sabes si te alcanza para pagar, el riesgo es alto." },
+    datos:    { g: "Comparas tus números con el banco y los tienes a la vista.", y: "Revisas tus números de vez en cuando: un error puede pasar meses sin verse.", r: "Sin comparar con el banco ni tenerlos a la vista, tus números pueden engañarte." },
+  };
+
+  document.getElementById("quiz").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const a = {};
+    for (const q of ["q1", "q2", "q3", "q4", "q5", "q6"]) {
+      const el = document.querySelector(`input[name="${q}"]:checked`);
+      if (!el) { document.getElementById("warn").textContent = "Responde las 6 preguntas para ver tu semáforo."; return; }
+      a[q] = el.value;
+    }
+    document.getElementById("warn").textContent = "";
+    const res = { ganancia: worst(a.q1, a.q2), cobros: a.q3, pagos: a.q4, datos: worst(a.q5, a.q6) };
+    const names = { ganancia: "Ganancia", cobros: "Cobros", pagos: "Pagos", datos: "Datos" };
+    const grid = document.getElementById("grid");
+    grid.innerHTML = "";
+    for (const k of Object.keys(res)) {
+      const [label, col, tcol] = COLOR[res[k]];
+      const div = document.createElement("div");
+      div.className = "area";
+      div.innerHTML = `<div class="top"><span class="dot" style="background:${col}"></span>${names[k]}<span class="tag" style="color:${tcol}">${label}</span></div><p>${TEXT[k][res[k]]}</p>`;
+      grid.appendChild(div);
+    }
+    const reds = Object.values(res).filter((v) => v === "r").length;
+    const yellows = Object.values(res).filter((v) => v === "y").length;
+    let headline, summary, color;
+    if (reds > 0) { headline = `Tu negocio tiene ${reds === 1 ? "1 foco rojo" : reds + " focos rojos"}`; summary = "No saberlo también es un foco rojo: lo que no se mide no se puede controlar. La radiografía te dice con tus números reales por dónde se escapa el dinero y qué hacer esta semana."; color = "rojo"; }
+    else if (yellows > 0) { headline = "Tu negocio está en amarillo"; summary = "Vas bien, pero hay cosas que vigilar. La radiografía te dice cuáles y cómo corregirlas a tiempo."; color = "amarillo"; }
+    else { headline = "¡Tu negocio está en verde!"; summary = "Excelente. Con la radiografía lo confirmas con tus números reales y ves qué más puedes mejorar."; color = "verde"; }
+    document.getElementById("headline").textContent = headline;
+    document.getElementById("summary").textContent = summary;
+    const msg = `Hola Ernesto, hice el test del semáforo y mi negocio salió en ${color}. Quiero mi radiografía gratis.`;
+    const cta = document.getElementById("cta");
+    if (WHATSAPP) { cta.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`; cta.textContent = "Pide tu radiografía gratis por WhatsApp"; }
+    else { cta.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Quiero mi radiografía gratis")}&body=${encodeURIComponent(msg)}`; cta.textContent = "Pide tu radiografía gratis por correo"; cta.style.background = "var(--ink)"; }
+    const r = document.getElementById("result");
+    r.style.display = "block";
+    r.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+</script>
+</body>
+</html>
