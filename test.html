@@ -126,9 +126,9 @@
     <h2 id="headline"></h2>
     <p id="summary"></p>
     <div class="grid" id="grid"></div>
-    <p class="note">Este test es una orientación rápida. La radiografía revisa tus números reales: cuánto ganaste de verdad, por dónde se escapa el dinero y 3 acciones para esa misma semana.</p>
-    <a class="btn btn-wa" id="cta" href="#" target="_blank" rel="noopener">Pide tu radiografía gratis</a>
-    <p class="note" style="margin-top:14px">Son solo 5 radiografías gratis. Tus datos son confidenciales: solo uso inteligencia artificial si me lo autorizas, y siempre sin nombres.</p>
+    <p class="note">Este test es una orientación rápida. El diagnóstico revisa tus números reales: cuánto ganaste de verdad, por dónde se escapa el dinero y 3 acciones para esa misma semana.</p>
+    <a class="btn btn-wa" id="cta" href="#" target="_blank" rel="noopener">Pide tu diagnóstico gratis</a>
+    <p class="note" style="margin-top:14px">Son solo 5 diagnósticos gratis. Tus datos son confidenciales: solo uso inteligencia artificial si me lo autorizas, y siempre sin nombres.</p>
   </section>
 </main>
 <footer>
@@ -172,15 +172,15 @@
     const reds = Object.values(res).filter((v) => v === "r").length;
     const yellows = Object.values(res).filter((v) => v === "y").length;
     let headline, summary, color;
-    if (reds > 0) { headline = `Tu negocio tiene ${reds === 1 ? "1 foco rojo" : reds + " focos rojos"}`; summary = "No saberlo también es un foco rojo: lo que no se mide no se puede controlar. La radiografía te dice con tus números reales por dónde se escapa el dinero y qué hacer esta semana."; color = "rojo"; }
-    else if (yellows > 0) { headline = "Tu negocio está en amarillo"; summary = "Vas bien, pero hay cosas que vigilar. La radiografía te dice cuáles y cómo corregirlas a tiempo."; color = "amarillo"; }
-    else { headline = "¡Tu negocio está en verde!"; summary = "Excelente. Con la radiografía lo confirmas con tus números reales y ves qué más puedes mejorar."; color = "verde"; }
+    if (reds > 0) { headline = `Tu negocio tiene ${reds === 1 ? "1 foco rojo" : reds + " focos rojos"}`; summary = "No saberlo también es un foco rojo: lo que no se mide no se puede controlar. El diagnóstico te dice con tus números reales por dónde se escapa el dinero y qué hacer esta semana."; color = "rojo"; }
+    else if (yellows > 0) { headline = "Tu negocio está en amarillo"; summary = "Vas bien, pero hay cosas que vigilar. El diagnóstico te dice cuáles y cómo corregirlas a tiempo."; color = "amarillo"; }
+    else { headline = "¡Tu negocio está en verde!"; summary = "Excelente. Con el diagnóstico lo confirmas con tus números reales y ves qué más puedes mejorar."; color = "verde"; }
     document.getElementById("headline").textContent = headline;
     document.getElementById("summary").textContent = summary;
-    const msg = `Hola Ernesto, hice el test del semáforo y mi negocio salió en ${color}. Quiero mi radiografía gratis.`;
+    const msg = `Hola Ernesto, hice el test del semáforo y mi negocio salió en ${color}. Quiero mi diagnóstico gratis.`;
     const cta = document.getElementById("cta");
-    if (WHATSAPP) { cta.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`; cta.textContent = "Pide tu radiografía gratis por WhatsApp"; }
-    else { cta.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Quiero mi radiografía gratis")}&body=${encodeURIComponent(msg)}`; cta.textContent = "Pide tu radiografía gratis por correo"; cta.style.background = "var(--ink)"; }
+    if (WHATSAPP) { cta.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`; cta.textContent = "Pide tu diagnóstico gratis por WhatsApp"; }
+    else { cta.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Quiero mi diagnóstico gratis")}&body=${encodeURIComponent(msg)}`; cta.textContent = "Pide tu diagnóstico gratis por correo"; cta.style.background = "var(--ink)"; }
     const r = document.getElementById("result");
     r.style.display = "block";
     r.scrollIntoView({ behavior: "smooth", block: "start" });
